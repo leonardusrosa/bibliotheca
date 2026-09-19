@@ -33,7 +33,7 @@ export function LibrarySidebar() {
       className="hidden md:flex flex-col fixed left-0 top-0 h-screen w-64 lg:w-72 z-30 bg-[var(--cathedral-void)]/95 backdrop-blur-xl border-r border-[var(--ancient-gold-alpha-soft)] text-[var(--text-primary)]"
     >
       {/* Brand Header */}
-      <div className="pt-8 pb-6 px-6 border-b border-[var(--ancient-gold-alpha-soft)]/60">
+      <div className="pt-8 pb-6 px-6 border-b border-[var(--ancient-gold-alpha-soft)]/60 shrink-0">
         <Link href="/library" className="group block focus:outline-none">
           <div className="flex items-center gap-3">
             <div className="w-9 h-9 rounded-lg flex items-center justify-center bg-[var(--ancient-gold-alpha)] border border-[var(--ancient-gold-warm)]/40 text-[var(--ancient-gold-bright)] group-hover:border-[var(--byzantine-gold)] transition-colors duration-300">
@@ -65,7 +65,7 @@ export function LibrarySidebar() {
       </div>
 
       {/* Navigation Sections */}
-      <ScrollArea className="flex-1 py-4 px-3">
+      <ScrollArea className="flex-1 min-h-0 py-4 px-3">
         <nav className="space-y-1.5" aria-label="Seções">
           {NAV_SECTIONS.map((section) => {
             const isActive =
@@ -123,7 +123,7 @@ export function LibrarySidebar() {
       </ScrollArea>
 
       {/* Account / Cloud Affordance & Study Footer */}
-      <div className="p-3 mx-3 mb-4 rounded-xl bg-[var(--stone-gray-alpha)]/30 border border-[var(--ancient-gold-alpha-soft)]/40 space-y-3">
+      <div className="p-3 mx-3 mb-4 rounded-xl bg-[var(--stone-gray-alpha)]/30 border border-[var(--ancient-gold-alpha-soft)]/40 space-y-3 shrink-0 mt-auto">
         <AccountAffordance />
         <div className="flex items-center justify-between text-xs text-[var(--sacred-ivory)]/50 font-cormorant italic pt-2 border-t border-white/5">
           <span>Estúdio Privado</span>
