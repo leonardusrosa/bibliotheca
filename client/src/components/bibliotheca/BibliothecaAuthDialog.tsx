@@ -162,14 +162,17 @@ export function BibliothecaAuthDialog({
 
           <div>
             <label className="block text-xs font-medium text-[var(--sacred-ivory)]/70 mb-1">
-              E-mail
+              {mode === "login" ? "E-mail ou Usuário" : "E-mail"}
             </label>
             <input
-              type="email"
+              type={mode === "login" ? "text" : "email"}
               required
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              placeholder="seu@email.com"
+              placeholder={mode === "login" ? "seu@email.com ou usuário" : "seu@email.com"}
+              autoCapitalize="none"
+              autoCorrect="off"
+              spellCheck="false"
               className="w-full px-3 py-2 rounded-lg bg-black/40 border border-white/10 text-sm text-[var(--parchment)] placeholder:text-white/20 focus:outline-none focus:border-[var(--ancient-gold)] transition-colors"
             />
           </div>
