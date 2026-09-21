@@ -12,36 +12,23 @@ const adminClient = createClient(supabaseUrl, serviceKey, {
 const anonClient = createClient(supabaseUrl, anonKey);
 
 async function main() {
-  const biblioUserId = '5fad546c-f451-4a20-b8a4-f78d74ab6d0e';
-  const oldUserId = '98758dcc-1b58-49de-ac2d-b6c1de247c6b';
+  const cabritaUserId = '98758dcc-1b58-49de-ac2d-b6c1de247c6b';
 
-  console.log('1. Updating user_profiles...');
-  // Free up username 'cabrita' if owned by old user
-  await adminClient
-    .from('user_profiles')
-    .update({ username: 'leo_box_backup' })
-    .eq('user_id', oldUserId);
-
-  // Assign username 'cabrita' to Bibliotheca user
+  console.log('1. Ensuring user_profiles has cabrita on the real account...');
   const { error: pErr } = await adminClient
     .from('user_profiles')
     .update({ username: 'cabrita', display_name: 'cabrita' })
-    .eq('user_id', biblioUserId);
-
+    .eq('user_id', cabritaUserId);
   if (pErr) throw pErr;
-  console.log('✓ user_profiles updated: username "cabrita" assigned to Bibliotheca user');
+  console.log('✓ user_profiles verified for cabrita');
 
-  console.log('2. Updating auth passwords to "cabrita"...');
-  const { error: aErr1 } = await adminClient.auth.admin.updateUserById(biblioUserId, {
+  console.log('2. Updating auth password to "cabrita"...');
+  const { error: aErr } = await adminClient.auth.admin.updateUserById(cabritaUserId, {
     password: 'cabrita',
     user_metadata: { username: 'cabrita' }
   });
-  if (aErr1) throw aErr1;
-
-  await adminClient.auth.admin.updateUserById(oldUserId, {
-    password: 'cabrita'
-  }).catch(() => {});
-  console.log('✓ Passwords updated to "cabrita"');
+  if (aErr) throw aErr;
+  console.log('✓ Password updated to "cabrita"');
 
   console.log('3. Testing username lookup...');
   const { data: prof, error: fErr } = await adminClient
@@ -60,7 +47,7 @@ async function main() {
   if (authErr) throw authErr;
   console.log('✓ Successfully authenticated! User ID:', authData.user.id);
 
-  console.log('5. Verifying 12 library items accessible for this user...');
+  console.log('5. Verifying library items accessible for this user...');
   const { data: items, error: iErr } = await anonClient
     .from('bibliotheca_library_items')
     .select('id, reading_status')
